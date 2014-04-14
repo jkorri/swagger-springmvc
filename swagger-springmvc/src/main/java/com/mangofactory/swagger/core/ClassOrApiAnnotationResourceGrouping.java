@@ -2,6 +2,8 @@ package com.mangofactory.swagger.core;
 
 import com.mangofactory.swagger.scanners.ResourceGroup;
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.model.ApiDescription;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -49,5 +51,11 @@ public class ClassOrApiAnnotationResourceGrouping implements ResourceGroupingStr
          group = apiAnnotation.value();
       }
       return group;
+   }
+   
+   @Override
+   public Set<ApiDescription> filterApiDescriptions(SwaggerPathProvider pathProvider,
+         ResourceGroup resourceGroup, Set<ApiDescription> apiDescriptions) {
+      return apiDescriptions;
    }
 }

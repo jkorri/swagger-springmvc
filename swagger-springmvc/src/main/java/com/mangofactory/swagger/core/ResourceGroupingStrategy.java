@@ -1,6 +1,8 @@
 package com.mangofactory.swagger.core;
 
 import com.mangofactory.swagger.scanners.ResourceGroup;
+import com.wordnik.swagger.model.ApiDescription;
+
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
@@ -28,4 +30,7 @@ public interface ResourceGroupingStrategy {
     * @return description of the resource
     */
    public String getResourceDescription(RequestMappingInfo requestMappingInfo, HandlerMethod handlerMethod);
+   
+   public Set<ApiDescription> filterApiDescriptions(SwaggerPathProvider pathProvider,
+         ResourceGroup resourceGroup, Set<ApiDescription> apiDescriptions);
 }

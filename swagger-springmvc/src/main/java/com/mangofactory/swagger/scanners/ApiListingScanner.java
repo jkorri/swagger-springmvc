@@ -1,6 +1,5 @@
 package com.mangofactory.swagger.scanners;
 
-import com.google.common.base.Predicate;
 import com.mangofactory.swagger.authorization.AuthorizationContext;
 import com.mangofactory.swagger.configuration.SwaggerGlobalSettings;
 import com.mangofactory.swagger.core.CommandExecutor;
@@ -119,7 +118,8 @@ public class ApiListingScanner {
                toScalaList(consumes),
                emptyScalaList(),
                authorizations,
-               toScalaList(filter(apiDescriptions, withPathBeginning(groupPrefix))),
+               toScalaList(this.getControllerNamingStrategy().
+                   filterApiDescriptions(swaggerPathProvider, controllerGroup, apiDescriptions)),
                modelOption,
                toOption(null),
                position++);
@@ -128,16 +128,7 @@ public class ApiListingScanner {
       return apiListingMap;
    }
 
-    private Predicate<? super ApiDescription> withPathBeginning(final String path) {
-        return new Predicate<ApiDescription>() {
-            @Override
-            public boolean apply(ApiDescription input) {
-                return input.path().startsWith(path);
-            }
-        };
-    }
-
-    public SwaggerGlobalSettings getSwaggerGlobalSettings() {
+   public SwaggerGlobalSettings getSwaggerGlobalSettings() {
       return swaggerGlobalSettings;
    }
 
